@@ -13,13 +13,7 @@
         <!-- Game canvas will be injected here by Phaser -->
     </div>
     
-    <!-- Image Processing Canvas (hidden) -->
-    <canvas id="processing-canvas" style="display: none;"></canvas>
-    
-    <!-- Main Game Scripts -->
-    <script src="js/utils/imageProcessor.js"></script>
-    <script src="js/utils/storage.js"></script>
-    <script src="js/config.js"></script>
+      <!-- CORRECT ORDER: Scene classes must be defined BEFORE config.js uses them -->
     <script src="js/scenes/BootScene.js"></script>
     <script src="js/scenes/SplashScene.js"></script>
     <script src="js/scenes/InputScene.js"></script>
@@ -27,6 +21,15 @@
     <script src="js/scenes/StageTwoScene.js"></script>
     <script src="js/scenes/StageThreeScene.js"></script>
     <script src="js/scenes/GameOverScene.js"></script>
+    
+    <!-- Utils -->
+    <script src="js/utils/imageProcessor.js"></script>
+    <script src="js/utils/storage.js"></script>
+    
+    <!-- Config must be after scenes are defined -->
+    <script src="js/config.js"></script>
+    
+    <!-- Main JS must be last -->
     <script src="js/main.js"></script>
 </body>
 </html>
