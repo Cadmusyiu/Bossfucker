@@ -25,7 +25,7 @@ class GameOverScene extends Phaser.Scene {
         const scoreText = this.add.text(
             this.cameras.main.width / 2,
             this.cameras.main.height / 2,
-            `Final Score: ${getGameState().totalScore || 0}`,
+            'Final Score: 0',
             {
                 fontFamily: 'Arial',
                 fontSize: '28px',
@@ -51,7 +51,7 @@ class GameOverScene extends Phaser.Scene {
         playAgainButton.setInteractive({ useHandCursor: true });
         
         playAgainButton.on('pointerdown', () => {
-            resetGame();
+            this.scene.start('SplashScene');
         });
     }
 }
