@@ -3,28 +3,26 @@ class SplashScene extends Phaser.Scene {
         super({ key: 'SplashScene' });
     }
 
-    preload() {
-        // Load splash screen assets
-        this.load.image('logo', 'assets/images/logo.png');
-        this.load.image('startButton', 'assets/images/start-button.png');
-        this.load.image('backgroundPattern', 'assets/images/background-pattern.png');
-        
-        // Audio
-        this.load.audio('buttonSound', 'assets/audio/button-click.mp3');
-        this.load.audio('titleMusic', 'assets/audio/title-music.mp3');
-    }
-
     create() {
-        // Add background pattern
-        const background = this.add.tileSprite(0, 0, this.cameras.main.width, this.cameras.main.height, 'backgroundPattern');
-        background.setOrigin(0, 0);
+        // Add background
+        const background = this.add.rectangle(0, 0, 
+            this.cameras.main.width, this.cameras.main.height, 
+            0x0066aa).setOrigin(0, 0);
         
-        // Add animated background elements (office items)
-        this.createBackgroundElements();
-        
-        // Add game logo
-        const logo = this.add.image(this.cameras.main.width / 2, 150, 'logo');
-        logo.setScale(0.8);
+        // Add game logo (text instead of image)
+        const logo = this.add.text(
+            this.cameras.main.width / 2, 150,
+            'BOSS CHALLENGER',
+            {
+                fontFamily: 'Arial',
+                fontSize: '48px',
+                fontStyle: 'bold',
+                color: '#ffffff',
+                stroke: '#000000',
+                strokeThickness: 6
+            }
+        );
+        logo.setOrigin(0.5);
         
         // Add tagline
         const tagline = this.add.text(
@@ -41,19 +39,35 @@ class SplashScene extends Phaser.Scene {
         );
         tagline.setOrigin(0.5);
         
-        // Start button
-        const startButton = this.add.image(
+        // Start button (rectangle + text instead of image)
+        const startButtonBg = this.add.rectangle(
             this.cameras.main.width / 2,
             this.cameras.main.height / 2 + 80,
-            'startButton'
+            200, 60,
+            0x4CAF50
         );
-        startButton.setScale(0.6);
-        startButton.setInteractive({ useHandCursor: true });
+        
+        const startButtonText = this.add.text(
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2 + 80,
+            'START',
+            {
+                fontFamily: 'Arial',
+                fontSize: '28px',
+                fontStyle: 'bold',
+                color: '#ffffff'
+            }
+        );
+        startButtonText.setOrigin(0.5);
+        
+        // Make button interactive
+        startButtonBg.setInteractive({ useHandCursor: true });
         
         // Add pulse animation to start button
         this.tweens.add({
-            targets: startButton,
-            scale: 0.65,
+            targets: startButtonBg,
+            scaleX: 1.05,
+            scaleY: 1.05,
             duration: 800,
             yoyo: true,
             repeat: -1,
@@ -61,73 +75,13 @@ class SplashScene extends Phaser.Scene {
         });
         
         // Start button event
-        startButton.on('pointerdown', () => {
-            // Play button sound
-            this.sound.play('buttonSound');
-            
+        startButtonBg.on('pointerdown', () => {
             // Move to the input scene
             this.scene.start('InputScene');
         });
         
-        // Check for saved game
-        if (hasSavedGame()) {
-            // Add continue button
-            const continueButton = this.add.text(
-                this.cameras.main.width / 2,
-                this.cameras.main.height / 2 + 150,
-                'Continue Previous Game',
-                {
-                    fontFamily: 'Arial',
-                    fontSize: '18px',
-                    color: '#ffffff',
-                    backgroundColor: '#008800',
-                    padding: {
-                        left: 15,
-                        right: 15,
-                        top: 10,
-                        bottom: 10
-                    }
-                }
-            );
-            continueButton.setOrigin(0.5);
-            continueButton.setInteractive({ useHandCursor: true });
-            
-            continueButton.on('pointerdown', () => {
-                // Play button sound
-                this.sound.play('buttonSound');
-                
-                // Load saved game
-                initializeStorage();
-                
-                // Determine which stage to start
-                const gameSettings = getGameState();
-                
-                // Start the appropriate stage
-                switch (gameSettings.currentStage) {
-                    case 1:
-                        this.scene.start('StageOneScene');
-                        break;
-                    case 2:
-                        this.scene.start('StageTwoScene');
-                        break;
-                    case 3:
-                        this.scene.start('StageThreeScene');
-                        break;
-                    default:
-                        // If no valid stage, go to input
-                        this.scene.start('InputScene');
-                }
-            });
-        }
-        
-        // Play background music
-        if (!this.sound.get('titleMusic')) {
-            const music = this.sound.add('titleMusic', {
-                volume: 0.5,
-                loop: true
-            });
-            music.play();
-        }
+        // Add floating shapes in background
+        this.createBackgroundElements();
     }
     
     createBackgroundElements() {
@@ -139,8 +93,7 @@ class SplashScene extends Phaser.Scene {
             { key: 'pencil', x: 600, y: 150, speed: 0.6 }
         ];
         
-        // Simulate these elements with simple shapes for now
-        // In a full implementation, you'd replace these with actual sprites
+        // Create simple shapes
         elements.forEach(element => {
             // Create a simple shape
             const graphics = this.add.graphics();
@@ -171,16 +124,6 @@ class SplashScene extends Phaser.Scene {
                 targets: graphics,
                 y: graphics.y - 50,
                 duration: 2000 / element.speed,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-            });
-            
-            // Add slight rotation
-            this.tweens.add({
-                targets: graphics,
-                angle: 10,
-                duration: 3000 / element.speed,
                 yoyo: true,
                 repeat: -1,
                 ease: 'Sine.easeInOut'
