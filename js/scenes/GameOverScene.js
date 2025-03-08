@@ -101,7 +101,7 @@ class GameOverScene extends Phaser.Scene {
         // Add encouragement based on score
         let encouragement = '';
         if (totalScore > 5000) {
-            encouragement = 'Incredible! You're a true boss challenger!';
+            encouragement = 'Incredible! You are a true boss challenger!';
         } else if (totalScore > 3000) {
             encouragement = 'Well done! You handled that boss perfectly!';
         } else if (totalScore > 1000) {
