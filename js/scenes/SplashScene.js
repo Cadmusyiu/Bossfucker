@@ -12,7 +12,7 @@ class SplashScene extends Phaser.Scene {
         // Add game logo (text instead of image)
         const logo = this.add.text(
             this.cameras.main.width / 2, 150,
-            'BOSS CHALLENGER',
+            'BOSS Fucker!',
             {
                 fontFamily: 'Arial',
                 fontSize: '48px',
