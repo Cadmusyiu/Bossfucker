@@ -46,19 +46,7 @@ class BootScene extends Phaser.Scene {
             loadingText.destroy();
         });
         
-        // Load essential assets
-        this.load.image('logo', 'assets/images/logo.png');
-        this.load.image('start-button', 'assets/images/start-button.png');
-        this.load.image('background-pattern', 'assets/images/background-pattern.png');
-        
-        // Load common audio
-        this.load.audio('button-click', 'assets/audio/button-click.mp3');
-        this.load.audio('title-music', 'assets/audio/title-music.mp3');
-        
-        // Load default boss assets
-        this.load.image('defaultBoss1', 'assets/images/default-boss-1.png');
-        this.load.image('defaultBoss2', 'assets/images/default-boss-2.png');
-        this.load.image('defaultBoss3', 'assets/images/default-boss-3.png');
+        // No external assets loaded
     }
 
     create() {
