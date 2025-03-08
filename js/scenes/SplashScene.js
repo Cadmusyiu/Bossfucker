@@ -28,7 +28,7 @@ class SplashScene extends Phaser.Scene {
         const tagline = this.add.text(
             this.cameras.main.width / 2, 
             220, 
-            'Turn the Tables on Management!', 
+            'Turn the Tables on Your Boss!', 
             {
                 fontFamily: 'Arial',
                 fontSize: '24px',
