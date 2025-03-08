@@ -21,10 +21,6 @@ const config = {
             debug: false
         }
     },
-    dom: {
-        createContainer: true
-    },
-    // Make the game responsive
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -42,22 +38,22 @@ const gameSettings = {
     
     // Stage-specific settings
     stageOneSettings: {
-        gameDuration: 60, // in seconds
+        gameDuration: 60,
         targetScore: 1000,
         paperTypes: 5,
         fallSpeed: 100
     },
     
     stageTwoSettings: {
-        gameDuration: 90, // in seconds
+        gameDuration: 90,
         coffeeOrders: 8,
         bossSpeed: 100,
         playerSpeed: 150
     },
     
     stageThreeSettings: {
-        gameDuration: 120, // in seconds
+        gameDuration: 120,
         notesPerSecond: 1.5,
-        bossInterruptionFrequency: 10 // in seconds
+        bossInterruptionFrequency: 10
     }
 };
